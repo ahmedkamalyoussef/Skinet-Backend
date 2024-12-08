@@ -17,7 +17,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 #endregion
 
 #region Di
-
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 #endregion
 
