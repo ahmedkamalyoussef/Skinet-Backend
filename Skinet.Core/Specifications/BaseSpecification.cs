@@ -7,6 +7,9 @@ public class BaseSpecification<T>(Expression<Func<T,bool>>? _criteria) : ISpecif
 {
     protected BaseSpecification():this(null) {}
     public Expression<Func<T, bool>>? Criteria => _criteria;
+    public int Take { get;private set; }
+    public int Skip { get;private set; }
+    public bool IsPaginable { get;private set; }
     public bool IsDistinctable { get; private set; }
     public Expression<Func<T, object>>? OrderBy { get; private set; }
     public Expression<Func<T, object>>? OrderByDescending { get; private set; }
@@ -20,7 +23,22 @@ public class BaseSpecification<T>(Expression<Func<T,bool>>? _criteria) : ISpecif
     {
         OrderByDescending = orderByDescending;
     }
+
+    public IQueryable<T> ApplyCriteria(IQueryable<T> query)
+    {
+        if(Criteria != null)
+            query = query.Where(Criteria);
+        return query;
+    }
+
     protected void SetIsDistinctable(){IsDistinctable=true;}
+
+    protected void ApplyPagination(int skip, int take)
+    {
+        Take=take;
+        Skip=skip;
+        IsPaginable=true;
+    }
 }
 
 public class BaseSpecification<T, TResult>(Expression<Func<T, bool>> _criteria)

@@ -4,12 +4,13 @@ namespace Skinet.Core.Specifications;
 
 public class ProductFilterSortPaginationSpecification:BaseSpecification<Product>
 {
-    public ProductFilterSortPaginationSpecification(string? brand, string? type,string? sortBy) : base(product =>
-        (string.IsNullOrWhiteSpace(brand) || product.Brand == brand) &&
-        (string.IsNullOrWhiteSpace(type) || product.Type == type)
+    public ProductFilterSortPaginationSpecification(ProductSpecParams specParams) : base(product =>
+        (specParams.Brands.Count==0 || specParams.Brands.Contains(product.Brand)) &&
+        (specParams.Types.Count==0 || specParams.Types.Contains(product.Type))
     )
     {
-        switch (sortBy)
+        ApplyPagination(specParams.PageSize*(specParams.PageIndex-1), specParams.PageSize);
+        switch (specParams.SortBy)
         {
             case "priceAsc":
                 SetOrderBy(p=>p.Price);

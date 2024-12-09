@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Skinet.API.RequestHelpers;
 using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
@@ -12,11 +13,13 @@ public class ProductsController(IGenericRepository<Product> _repository): Contro
 {
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(string? brand, string? type, string? sortBy)
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts([FromQuery]ProductSpecParams specParams)
     {
-        var specification=new ProductFilterSortPaginationSpecification(brand, type, sortBy);
+        var specification=new ProductFilterSortPaginationSpecification(specParams);
         var products = await _repository.ListAsync(specification); 
-        return Ok(products);
+        var count = await _repository.CountAsync(specification);
+        var pagination =new Pagination<Product>(specParams.PageIndex, specParams.PageSize, count,products);
+        return Ok(pagination);
     }
 
     [HttpGet("{id:int}")]
