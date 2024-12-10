@@ -32,5 +32,13 @@ public class ProductSpecParams
             _types = value.SelectMany(b=>b.Split(',',StringSplitOptions.RemoveEmptyEntries)).ToList();
         }
     }
+
+    private string? _search;
+
+    public string? Search
+    {
+        get => _search ?? "";
+        set => _search = value.ToLower();
+    }
     public string? SortBy { get; set; }
 }

@@ -5,6 +5,7 @@ namespace Skinet.Core.Specifications;
 public class ProductFilterSortPaginationSpecification:BaseSpecification<Product>
 {
     public ProductFilterSortPaginationSpecification(ProductSpecParams specParams) : base(product =>
+        (string.IsNullOrEmpty(specParams.Search)||product.Name.ToLower().Contains(specParams.Search))
         (specParams.Brands.Count==0 || specParams.Brands.Contains(product.Brand)) &&
         (specParams.Types.Count==0 || specParams.Types.Contains(product.Type))
     )

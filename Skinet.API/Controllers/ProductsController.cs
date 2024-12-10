@@ -7,19 +7,15 @@ using Skinet.Core.Specifications;
 using Skinet.Infrastructure.Data;
 
 namespace Skinet.API.Controllers;
-[ApiController]
-[Route("[controller]")]
-public class ProductsController(IGenericRepository<Product> _repository): ControllerBase
+
+public class ProductsController(IGenericRepository<Product> _repository): BaseApiController
 {
 
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts([FromQuery]ProductSpecParams specParams)
     {
         var specification=new ProductFilterSortPaginationSpecification(specParams);
-        var products = await _repository.ListAsync(specification); 
-        var count = await _repository.CountAsync(specification);
-        var pagination =new Pagination<Product>(specParams.PageIndex, specParams.PageSize, count,products);
-        return Ok(pagination);
+        return await CreatePagedResult(_repository, specification, specParams.PageIndex, specParams.PageSize);
     }
 
     [HttpGet("{id:int}")]
