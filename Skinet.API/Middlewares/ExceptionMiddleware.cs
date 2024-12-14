@@ -1,9 +1,10 @@
 ﻿using System.Net;
 using System.Text.Json;
 using Skinet.API.Errors;
+
 namespace Skinet.API.Middlewares;
 
-public class ExceptionMiddleware(IHostEnvironment env ,RequestDelegate next)
+public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
 {
     public async Task InvokeAsync(HttpContext context)
     {
@@ -13,7 +14,7 @@ public class ExceptionMiddleware(IHostEnvironment env ,RequestDelegate next)
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(context, exception,env); 
+            await HandleExceptionAsync(context, exception, env); 
         }
     }
 
@@ -29,7 +30,7 @@ public class ExceptionMiddleware(IHostEnvironment env ,RequestDelegate next)
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
-        var json = JsonSerializer.Serialize((response, option));
+        var json = JsonSerializer.Serialize(response, option);
         return context.Response.WriteAsync(json);
     }
 }

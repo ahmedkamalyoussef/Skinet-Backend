@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs;
-using Skinet.Core.Entites;
 
 namespace Skinet.API.Controllers;
 
 public class BuggyController:BaseApiController
 {
-    [HttpGet("unauthorised")]
+    [HttpGet("unauthorized")]
     public IActionResult GetUnauthorised()
     {
         return Unauthorized();

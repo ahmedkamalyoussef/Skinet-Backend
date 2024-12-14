@@ -4,6 +4,8 @@ using Skinet.API.Middlewares;
 using Skinet.Core.Interfaces;
 using Skinet.Infrastructure.Data;
 using Skinet.Infrastructure.Repositories;
+using Skinet.Infrastructure.Services;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +22,22 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 #region Di
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddSingleton<ICartService, CartService>();
 #endregion
 
 #region Cors
 builder.Services.AddCors();
 #endregion
+
+#region redis
+builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("Redis") ?? throw new Exception("Redis connection string not found");
+    var configuration = ConfigurationOptions.Parse(connectionString, true);
+    return ConnectionMultiplexer.Connect(configuration);
+});
+#endregion
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
