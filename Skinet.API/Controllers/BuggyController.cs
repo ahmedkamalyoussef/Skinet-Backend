@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs;
 
 namespace Skinet.API.Controllers;
@@ -32,6 +33,7 @@ public class BuggyController:BaseApiController
     [HttpPost("validationerror")]
     public IActionResult GetValidationError(CreateProductDto product)
     {
+        var name =User.FindFirst(ClaimTypes.Name )?.Value;
         return Ok();
     }
 }

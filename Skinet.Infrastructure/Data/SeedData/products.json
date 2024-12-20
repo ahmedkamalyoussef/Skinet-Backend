@@ -160,5 +160,186 @@
     "Type": "Boots",
     "Brand": "Angular",
     "QuantityInStock": 27
+  },
+
+  {
+    "Name": "React Speedster Board 4000",
+    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin pharetra nonummy pede. Mauris et orci.",
+    "Price": 260,
+    "ImageUrl": "https://via.placeholder.com/150?text=React+Speedster+Board+4000",
+    "Type": "Boards",
+    "Brand": "React",
+    "QuantityInStock": 88
+  },
+  {
+    "Name": "NetCore Advanced Board 5000",
+    "Description": "Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat.",
+    "Price": 320,
+    "ImageUrl": "https://via.placeholder.com/150?text=NetCore+Advanced+Board+5000",
+    "Type": "Boards",
+    "Brand": "NetCore",
+    "QuantityInStock": 15
+  },
+  {
+    "Name": "Angular Orange Woolen Hat",
+    "Description": "Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.",
+    "Price": 12,
+    "ImageUrl": "https://via.placeholder.com/150?text=Angular+Orange+Woolen+Hat",
+    "Type": "Hats",
+    "Brand": "Angular",
+    "QuantityInStock": 40
+  },
+  {
+    "Name": "Blue Typescript Gloves",
+    "Description": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus.",
+    "Price": 20,
+    "ImageUrl": "https://via.placeholder.com/150?text=Blue+Typescript+Gloves",
+    "Type": "Gloves",
+    "Brand": "Typescript",
+    "QuantityInStock": 50
+  },
+  {
+    "Name": "Redis Green Boots",
+    "Description": "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
+    "Price": 275,
+    "ImageUrl": "https://via.placeholder.com/150?text=Redis+Green+Boots",
+    "Type": "Boots",
+    "Brand": "Redis",
+    "QuantityInStock": 30
+  },
+  {
+    "Name": "React Yellow Gloves",
+    "Description": "Pellentesque habitant morbi tristique senectus et netus. Suspendisse potenti.",
+    "Price": 22,
+    "ImageUrl": "https://via.placeholder.com/150?text=React+Yellow+Gloves",
+    "Type": "Gloves",
+    "Brand": "React",
+    "QuantityInStock": 42
+  },
+  {
+    "Name": "NetCore Explorer Boots",
+    "Description": "In hac habitasse platea dictumst. Integer a nibh. In quis justo.",
+    "Price": 220,
+    "ImageUrl": "https://via.placeholder.com/150?text=NetCore+Explorer+Boots",
+    "Type": "Boots",
+    "Brand": "NetCore",
+    "QuantityInStock": 60
+  },
+  {
+    "Name": "Angular Beginner Board",
+    "Description": "Cras in purus eu magna vulputate luctus. Integer non velit.",
+    "Price": 140,
+    "ImageUrl": "https://via.placeholder.com/150?text=Angular+Beginner+Board",
+    "Type": "Boards",
+    "Brand": "Angular",
+    "QuantityInStock": 90
+  },
+  {
+    "Name": "Typescript Pro Board",
+    "Description": "Sed libero. Nullam sit amet turpis elementum ligula vehicula consequat.",
+    "Price": 200,
+    "ImageUrl": "https://via.placeholder.com/150?text=Typescript+Pro+Board",
+    "Type": "Boards",
+    "Brand": "Typescript",
+    "QuantityInStock": 25
+  },
+  {
+    "Name": "React Pink Woolen Hat",
+    "Description": "Etiam pretium iaculis justo. Vivamus quis mi. Phasellus viverra nulla ut metus varius laoreet.",
+    "Price": 14,
+    "ImageUrl": "https://via.placeholder.com/150?text=React+Pink+Woolen+Hat",
+    "Type": "Hats",
+    "Brand": "React",
+    "QuantityInStock": 20
+  },
+  {
+    "Name": "React Speedster Board 5000",
+    "Description": "This board combines performance and style, making it the ultimate choice for developers who demand speed.",
+    "Price": 280,
+    "ImageUrl": "https://via.placeholder.com/150?text=React+Speedster+Board+5000",
+    "Type": "Boards",
+    "Brand": "React",
+    "QuantityInStock": 50
+  },
+  {
+    "Name": "TypeScript Turbo Board",
+    "Description": "Experience unmatched smoothness and reliability with the Turbo Board. Ideal for TypeScript enthusiasts.",
+    "Price": 170,
+    "ImageUrl": "https://via.placeholder.com/150?text=TypeScript+Turbo+Board",
+    "Type": "Boards",
+    "Brand": "TypeScript",
+    "QuantityInStock": 40
+  },
+  {
+    "Name": "Angular Trailblazer Board",
+    "Description": "Navigate the terrain of modern development effortlessly with the Trailblazer Board. Built for the Angular community.",
+    "Price": 220,
+    "ImageUrl": "https://via.placeholder.com/150?text=Angular+Trailblazer+Board",
+    "Type": "Boards",
+    "Brand": "Angular",
+    "QuantityInStock": 65
+  },
+  {
+    "Name": "Redis Rugged Hat",
+    "Description": "A durable and stylish accessory for developers. Stay cool while working with your favorite database.",
+    "Price": 12,
+    "ImageUrl": "https://via.placeholder.com/150?text=Redis+Rugged+Hat",
+    "Type": "Hats",
+    "Brand": "Redis",
+    "QuantityInStock": 24
+  },
+  {
+    "Name": "React Orange Beanie",
+    "Description": "Keep your head warm with this comfortable and vibrant beanie. A must-have for React fans.",
+    "Price": 10,
+    "ImageUrl": "https://via.placeholder.com/150?text=React+Orange+Beanie",
+    "Type": "Hats",
+    "Brand": "React",
+    "QuantityInStock": 31
+  },
+  {
+    "Name": "VS Code Tactical Gloves",
+    "Description": "Stay productive in all conditions with these high-quality gloves designed for coders.",
+    "Price": 20,
+    "ImageUrl": "https://via.placeholder.com/150?text=VS+Code+Tactical+Gloves",
+    "Type": "Gloves",
+    "Brand": "VS Code",
+    "QuantityInStock": 48
+  },
+  {
+    "Name": "NetCore Winter Boots",
+    "Description": "Tackle the cold season with these stylish and functional boots. Perfect for NetCore developers.",
+    "Price": 200,
+    "ImageUrl": "https://via.placeholder.com/150?text=NetCore+Winter+Boots",
+    "Type": "Boots",
+    "Brand": "NetCore",
+    "QuantityInStock": 45
+  },
+  {
+    "Name": "Angular Flame Boots",
+    "Description": "Heat up your development journey with these uniquely designed boots. A bold choice for Angular users.",
+    "Price": 190,
+    "ImageUrl": "https://via.placeholder.com/150?text=Angular+Flame+Boots",
+    "Type": "Boots",
+    "Brand": "Angular",
+    "QuantityInStock": 38
+  },
+  {
+    "Name": "Redis Elite Gloves",
+    "Description": "Step up your game with these premium gloves. Perfect for working long hours on Redis projects.",
+    "Price": 18,
+    "ImageUrl": "https://via.placeholder.com/150?text=Redis+Elite+Gloves",
+    "Type": "Gloves",
+    "Brand": "Redis",
+    "QuantityInStock": 29
+  },
+  {
+    "Name": "React Galactic Board",
+    "Description": "Explore uncharted territories of performance and style with the Galactic Board.",
+    "Price": 270,
+    "ImageUrl": "https://via.placeholder.com/150?text=React+Galactic+Board",
+    "Type": "Boards",
+    "Brand": "React",
+    "QuantityInStock": 30
   }
 ]

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Skinet.API.Middlewares;
+using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
 using Skinet.Infrastructure.Data;
 using Skinet.Infrastructure.Repositories;
@@ -25,6 +26,11 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<ICartService, CartService>();
 #endregion
 
+#region Identity
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<StoreContext>();
+#endregion
+
 #region Cors
 builder.Services.AddCors();
 #endregion
@@ -43,7 +49,7 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200", "https://localhost:4200"));
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -56,6 +62,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGroup("account").MapIdentityApi<AppUser>();
 
 #region seeding data
 try
