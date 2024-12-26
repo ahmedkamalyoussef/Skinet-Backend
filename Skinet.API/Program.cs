@@ -24,6 +24,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<ICartService, CartService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 #endregion
 
 #region Identity
@@ -61,9 +62,10 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.MapGroup("account").MapIdentityApi<AppUser>();
+
 app.MapControllers();
 
-app.MapGroup("account").MapIdentityApi<AppUser>();
 
 #region seeding data
 try

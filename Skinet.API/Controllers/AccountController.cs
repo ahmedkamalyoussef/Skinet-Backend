@@ -1,10 +1,6 @@
-
-
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Skinet.API.DTOs;
 using Skinet.API.Extensions;
 using Skinet.Core.Entites;
@@ -14,8 +10,17 @@ namespace Skinet.API.Controllers
     public class AccountController(SignInManager<AppUser> signInManager) : BaseApiController
     {
         [HttpPost("register")]
-        public async Task<ActionResult> Register(RegisterDto registerDto)
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
+            System.Console.WriteLine($"Register endpoint hit with email: {registerDto.Email}");
+
+            var existingUser = await signInManager.UserManager.FindByEmailAsync(registerDto.Email);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("email", "Email address is already in use");
+                return ValidationProblem();
+            }
+
             var user = new AppUser
             {
                 FirstName = registerDto.FirstName,
@@ -23,16 +28,26 @@ namespace Skinet.API.Controllers
                 Email = registerDto.Email,
                 UserName = registerDto.Email
             };
+
             var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
-            if (!result.Succeeded) 
+            
+            if (!result.Succeeded)
             {
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
                 return ValidationProblem();
             }
-            return Ok();
+
+            System.Console.WriteLine($"User created with FirstName: {user.FirstName}, LastName: {user.LastName}");
+            
+            return Ok(new
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            });
         }
         [Authorize]
         [HttpPost("logout")]
@@ -56,7 +71,7 @@ namespace Skinet.API.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpGet("auth-status")]
         public IActionResult GetAuthState()
         {
             return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });
