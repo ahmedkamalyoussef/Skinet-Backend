@@ -4,7 +4,7 @@ using Skinet.API.DTOs;
 
 namespace Skinet.API.Controllers;
 
-public class BuggyController:BaseApiController
+public class BuggyController : BaseApiController
 {
     [HttpGet("unauthorized")]
     public IActionResult GetUnauthorised()
@@ -33,7 +33,7 @@ public class BuggyController:BaseApiController
     [HttpPost("validationerror")]
     public IActionResult GetValidationError(CreateProductDto product)
     {
-        var name =User.FindFirst(ClaimTypes.Name )?.Value;
+        var name = User.FindFirst(ClaimTypes.Name)?.Value;
         return Ok();
     }
 }

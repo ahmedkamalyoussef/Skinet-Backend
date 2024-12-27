@@ -20,7 +20,7 @@ namespace Skinet.API.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCart(ShoppingCart cart)
         {
-            var updateCart =await cartService.SetCartAsync(cart);
+            var updateCart = await cartService.SetCartAsync(cart);
             return updateCart is null ? BadRequest("problem updating cart") : Ok(updateCart);
         }
 
@@ -28,6 +28,6 @@ namespace Skinet.API.Controllers
         public async Task<IActionResult> DeleteCart(string id)
         {
             return await cartService.DeleteCartAsync(id) ? Ok("cart deleted successfully") : BadRequest("problem deleting cart");
-        } 
+        }
     }
 }

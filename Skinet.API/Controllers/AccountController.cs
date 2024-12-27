@@ -30,7 +30,7 @@ namespace Skinet.API.Controllers
             };
 
             var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
-            
+
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -41,7 +41,7 @@ namespace Skinet.API.Controllers
             }
 
             System.Console.WriteLine($"User created with FirstName: {user.FirstName}, LastName: {user.LastName}");
-            
+
             return Ok(new
             {
                 FirstName = user.FirstName,

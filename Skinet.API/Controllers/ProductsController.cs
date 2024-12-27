@@ -8,13 +8,13 @@ using Skinet.Infrastructure.Data;
 
 namespace Skinet.API.Controllers;
 
-public class ProductsController(IGenericRepository<Product> _repository): BaseApiController
+public class ProductsController(IGenericRepository<Product> _repository) : BaseApiController
 {
 
     [HttpGet]
-    public async Task<IActionResult> GetProducts([FromQuery]ProductSpecParams specParams)
+    public async Task<IActionResult> GetProducts([FromQuery] ProductSpecParams specParams)
     {
-        var specification=new ProductFilterSortPaginationSpecification(specParams);
+        var specification = new ProductFilterSortPaginationSpecification(specParams);
         return await CreatePagedResult(_repository, specification, specParams.PageIndex, specParams.PageSize);
     }
 
@@ -30,14 +30,14 @@ public class ProductsController(IGenericRepository<Product> _repository): BaseAp
     public async Task<IActionResult> CreateProduct(Product product)
     {
         _repository.Add(product);
-        return await _repository.SaveAsync() ? 
-            CreatedAtAction("GetProduct",new{id=product.Id},product) : BadRequest("Product not created");
+        return await _repository.SaveAsync() ?
+            CreatedAtAction("GetProduct", new { id = product.Id }, product) : BadRequest("Product not created");
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateProduct(int id, Product product)
     {
-        if (product.Id != id||!_repository.Exists(id))
+        if (product.Id != id || !_repository.Exists(id))
             return BadRequest("Product not found");
         _repository.Update(product);
         return await _repository.SaveAsync() ? Ok("successfully updated") : BadRequest("Product not updated");
@@ -47,7 +47,7 @@ public class ProductsController(IGenericRepository<Product> _repository): BaseAp
     public async Task<IActionResult> DeleteProduct(int id)
     {
         var product = await _repository.GetByIdAsync(id);
-        if(product == null)
+        if (product == null)
             return NotFound();
         _repository.Delete(product);
         return await _repository.SaveAsync() ? Ok("successfully deleted") : BadRequest("Product not deleted");
