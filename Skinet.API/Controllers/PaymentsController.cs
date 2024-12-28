@@ -9,7 +9,7 @@ using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Controllers
 {
-    public class PaymentsController(IPaymentService _paymentService, IGenericRepository<DeliveryMethod> _dmRepo) : BaseApiController
+    public class PaymentsController(IPaymentService _paymentService, IUnitOfWork _unitOfWork) : BaseApiController
     {
         [Authorize]
         [HttpPost("{cartId}")]
@@ -22,7 +22,7 @@ namespace Skinet.API.Controllers
         [HttpGet("deliveryMethods")]
         public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()
         {
-            var deliveryMethods = await _dmRepo.ListAllAsync();
+            var deliveryMethods = await _unitOfWork.Repository<DeliveryMethod>().ListAllAsync();
             return Ok(deliveryMethods);
         }
 

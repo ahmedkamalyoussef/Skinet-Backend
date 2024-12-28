@@ -43,10 +43,6 @@ public class GenericRepository<T>(StoreContext _context):IGenericRepository<T> w
         _context.Set<T>().Remove(entity);
     }
 
-    public async Task<bool> SaveAsync()
-    {
-        return await _context.SaveChangesAsync() > 0;
-    }
 
     public bool Exists(int id)
     {

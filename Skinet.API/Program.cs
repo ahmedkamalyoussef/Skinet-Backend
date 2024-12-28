@@ -22,6 +22,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 
 #region Di
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<ICartService, CartService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();

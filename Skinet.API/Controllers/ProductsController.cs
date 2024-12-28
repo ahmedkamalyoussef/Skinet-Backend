@@ -8,20 +8,20 @@ using Skinet.Infrastructure.Data;
 
 namespace Skinet.API.Controllers;
 
-public class ProductsController(IGenericRepository<Product> _repository) : BaseApiController
+public class ProductsController(IUnitOfWork _unitOfWork) : BaseApiController
 {
 
     [HttpGet]
     public async Task<IActionResult> GetProducts([FromQuery] ProductSpecParams specParams)
     {
         var specification = new ProductFilterSortPaginationSpecification(specParams);
-        return await CreatePagedResult(_repository, specification, specParams.PageIndex, specParams.PageSize);
+        return await CreatePagedResult(_unitOfWork.Repository<Product>(), specification, specParams.PageIndex, specParams.PageSize);
     }
 
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        var product = await _repository.GetByIdAsync(id);
+        var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
         if (product == null)
             return NotFound();
         return Ok(product);
@@ -29,40 +29,40 @@ public class ProductsController(IGenericRepository<Product> _repository) : BaseA
     [HttpPost]
     public async Task<IActionResult> CreateProduct(Product product)
     {
-        _repository.Add(product);
-        return await _repository.SaveAsync() ?
+        _unitOfWork.Repository<Product>().Add(product);
+        return await _unitOfWork.Complete() ?
             CreatedAtAction("GetProduct", new { id = product.Id }, product) : BadRequest("Product not created");
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateProduct(int id, Product product)
     {
-        if (product.Id != id || !_repository.Exists(id))
+        if (product.Id != id || !_unitOfWork.Repository<Product>().Exists(id))
             return BadRequest("Product not found");
-        _repository.Update(product);
-        return await _repository.SaveAsync() ? Ok("successfully updated") : BadRequest("Product not updated");
+        _unitOfWork.Repository<Product>().Update(product);
+        return await _unitOfWork.Complete() ? Ok("successfully updated") : BadRequest("Product not updated");
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
-        var product = await _repository.GetByIdAsync(id);
+        var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
         if (product == null)
             return NotFound();
-        _repository.Delete(product);
-        return await _repository.SaveAsync() ? Ok("successfully deleted") : BadRequest("Product not deleted");
+        _unitOfWork.Repository<Product>().Delete(product);
+        return await _unitOfWork.Complete() ? Ok("successfully deleted") : BadRequest("Product not deleted");
     }
 
     [HttpGet("brands")]
     public async Task<IActionResult> GetProductBrands()
     {
         var spec = new BrandListSpecification();
-        return Ok(await _repository.ListAsync(spec));
+        return Ok(await _unitOfWork.Repository<Product>().ListAsync(spec));
     }
     [HttpGet("types")]
     public async Task<IActionResult> GetProductTypes()
     {
         var spec = new TypeListSpecification();
-        return Ok(await _repository.ListAsync(spec));
+        return Ok(await _unitOfWork.Repository<Product>().ListAsync(spec));
     }
 }
