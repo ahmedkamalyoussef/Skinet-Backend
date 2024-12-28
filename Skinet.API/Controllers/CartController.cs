@@ -27,7 +27,7 @@ namespace Skinet.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteCart(string id)
         {
-            return await cartService.DeleteCartAsync(id) ? Ok("cart deleted successfully") : BadRequest("problem deleting cart");
+            return await cartService.DeleteCartAsync(id) ? Ok(new { message = "Cart deleted successfully" }) : BadRequest(new { message ="problem deleting cart"});
         }
     }
 }
