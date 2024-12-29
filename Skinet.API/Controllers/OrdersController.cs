@@ -9,6 +9,7 @@ using Skinet.API.Extensions;
 using Skinet.Core.Entites;
 using Skinet.Core.Entites.OrderAggregate;
 using Skinet.Core.Interfaces;
+using Skinet.Core.Specifications;
 
 namespace Skinet.API.Controllers
 {
@@ -53,10 +54,29 @@ namespace Skinet.API.Controllers
                 PaymentSummary = orderDto.PaymentSummary,
                 PaymentIntentId = cart.PaymentIntentId,
                 BuyerEmail = email
-            }; 
+            };
             _unitOfWork.Repository<Order>().Add(order);
             if (await _unitOfWork.Complete()) return order;
             return BadRequest("Problem with your order");
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrders()
+        {
+            var spec = new OrderSpecification(User.GetEmail());
+            var orders = await _unitOfWork.Repository<Order>().ListAsync(spec);
+            var ordersToReturn = orders.Select(o => o.ToDto()).ToList();
+            return Ok(ordersToReturn);
+        }
+
+        [HttpGet("id:int")]
+        public async Task<ActionResult<OrderDto>> GetOrderById(int id)
+        {
+            var spec = new OrderSpecification(id, User.GetEmail());
+            var order = await _unitOfWork.Repository<Order>().GetEntityWithSpecification(spec);
+
+            return order != null ? Ok(order.ToDto()) : NotFound();
+        }
     }
+
 }

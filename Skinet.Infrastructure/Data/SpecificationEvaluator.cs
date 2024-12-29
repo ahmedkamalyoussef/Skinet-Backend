@@ -1,4 +1,5 @@
-﻿using Skinet.Core.Entites;
+﻿using Microsoft.EntityFrameworkCore;
+using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
 
 namespace Skinet.Infrastructure.Data;
@@ -19,6 +20,9 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.Distinct();
         if(spec.IsPaginable)
             query = query.Skip(spec.Skip).Take(spec.Take);
+
+        query = spec.Includes.Aggregate(query ,(current, include) => current.Include(include));
+        query = spec.IncludeStrings.Aggregate(query ,(current, include) => current.Include(include));
         return query;
     }
     public static IQueryable<TResult> GetQuery<TSpec,TResult>(IQueryable<T> query, ISpecification<T,TResult> spec)
