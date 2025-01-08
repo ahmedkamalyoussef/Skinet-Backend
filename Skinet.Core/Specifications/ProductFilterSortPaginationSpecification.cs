@@ -2,19 +2,19 @@
 
 namespace Skinet.Core.Specifications;
 
-public class ProductFilterSortPaginationSpecification:BaseSpecification<Product>
+public class ProductFilterSortPaginationSpecification : BaseSpecification<Product>
 {
     public ProductFilterSortPaginationSpecification(ProductSpecParams specParams) : base(product =>
-        (string.IsNullOrEmpty(specParams.Search)||product.Name.ToLower().Contains(specParams.Search))
-        && (specParams.Brands.Count==0 || specParams.Brands.Contains(product.Brand))
-        && (specParams.Types.Count==0 || specParams.Types.Contains(product.Type))
+        (string.IsNullOrEmpty(specParams.Search) || product.Name.ToLower().Contains(specParams.Search))
+        && (specParams.Brands.Count == 0 || specParams.Brands.Contains(product.Brand))
+        && (specParams.Types.Count == 0 || specParams.Types.Contains(product.Type))
     )
     {
-        ApplyPagination(specParams.PageSize*(specParams.PageIndex-1), specParams.PageSize);
+        ApplyPagination(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);
         switch (specParams.SortBy)
         {
             case "priceAsc":
-                SetOrderBy(p=>p.Price);
+                SetOrderBy(p => p.Price);
                 break;
             case "priceDesc":
                 SetOrderByDescending(p => p.Price);

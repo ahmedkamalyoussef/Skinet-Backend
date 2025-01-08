@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Skinet.API.DTOs;
 using Skinet.Core.Entites.OrderAggregate;
 
@@ -23,7 +19,7 @@ namespace Skinet.API.Extensions
                 OrderItems = order.OrderItems.Select(x => x.ToDto()).ToList(),
                 SubTotal = order.SubTotal,
                 Status = order.Status.ToString(),
-                PaymentIntentId=order.PaymentIntentId,
+                PaymentIntentId = order.PaymentIntentId,
                 Total = order.GetTotal()
             };
         }
@@ -35,7 +31,7 @@ namespace Skinet.API.Extensions
                 ProductId = orderItem.ItemOrdered.ProductId,
                 ProductName = orderItem.ItemOrdered.ProductName,
                 PictureUrl = orderItem.ItemOrdered.PictureUrl,
-                Price=orderItem.Price,
+                Price = orderItem.Price,
                 Quantity = orderItem.Quantity
             };
         }

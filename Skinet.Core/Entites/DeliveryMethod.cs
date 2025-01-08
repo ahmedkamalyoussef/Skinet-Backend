@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Skinet.Core.Entites
 {
-    public class DeliveryMethod:BaseEntity
+    public class DeliveryMethod : BaseEntity
     {
         public required string ShortName { get; set; }
         public required string DeliveryTime { get; set; }

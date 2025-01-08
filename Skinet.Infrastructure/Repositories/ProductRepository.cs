@@ -5,7 +5,7 @@ using Skinet.Infrastructure.Data;
 
 namespace Skinet.Infrastructure.Repositories;
 
-public class ProductRepository(StoreContext _context):IProductRepository
+public class ProductRepository(StoreContext _context) : IProductRepository
 {
     public async Task<IReadOnlyList<Product>> GetProductsAsync()
     {

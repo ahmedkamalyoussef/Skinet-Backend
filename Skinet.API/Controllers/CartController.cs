@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
@@ -27,7 +23,7 @@ namespace Skinet.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteCart(string id)
         {
-            return await cartService.DeleteCartAsync(id) ? Ok(new { message = "Cart deleted successfully" }) : BadRequest(new { message ="problem deleting cart"});
+            return await cartService.DeleteCartAsync(id) ? Ok(new { message = "Cart deleted successfully" }) : BadRequest(new { message = "problem deleting cart" });
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using Skinet.API.Errors;
+using System.Net;
 using System.Text.Json;
-using Skinet.API.Errors;
 
 namespace Skinet.API.Middlewares;
 
@@ -14,7 +14,7 @@ public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(context, exception, env); 
+            await HandleExceptionAsync(context, exception, env);
         }
     }
 

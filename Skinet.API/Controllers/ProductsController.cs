@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Skinet.API.RequestHelpers;
 using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
-using Skinet.Infrastructure.Data;
 
 namespace Skinet.API.Controllers;
 

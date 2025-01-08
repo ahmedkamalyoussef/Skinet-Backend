@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
 using Skinet.Infrastructure.Repositories;
+using System.Collections.Concurrent;
 
 namespace Skinet.Infrastructure.Data
 {

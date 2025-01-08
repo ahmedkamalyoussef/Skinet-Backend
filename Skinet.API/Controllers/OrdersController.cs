@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs;
@@ -69,13 +65,13 @@ namespace Skinet.API.Controllers
             return Ok(ordersToReturn);
         }
 
-        [HttpGet("id:int")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<OrderDto>> GetOrderById(int id)
         {
             var spec = new OrderSpecification(id, User.GetEmail());
             var order = await _unitOfWork.Repository<Order>().GetEntityWithSpecification(spec);
-
-            return order != null ? Ok(order.ToDto()) : NotFound();
+            if (order == null) return NotFound();
+            return Ok(order.ToDto());
         }
     }
 

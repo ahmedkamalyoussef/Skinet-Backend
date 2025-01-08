@@ -1,5 +1,5 @@
-﻿using System.Linq.Expressions;
-using Skinet.Core.Interfaces;
+﻿using Skinet.Core.Interfaces;
+using System.Linq.Expressions;
 
 namespace Skinet.Core.Specifications;
 
@@ -15,7 +15,7 @@ public class BaseSpecification<T>(Expression<Func<T, bool>>? _criteria) : ISpeci
     public Expression<Func<T, object>>? OrderByDescending { get; private set; }
 
     public List<Expression<Func<T, object>>> Includes { get; } = [];
-    public List<string> IncludeStrings { get; }= [];
+    public List<string> IncludeStrings { get; } = [];
 
     protected void AddInclude(Expression<Func<T, object>> includeExpression)
     {

@@ -16,16 +16,16 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.OrderBy(spec.OrderBy);
         if (spec.OrderByDescending != null)
             query = query.OrderByDescending(spec.OrderByDescending);
-        if(spec.IsDistinctable)
+        if (spec.IsDistinctable)
             query = query.Distinct();
-        if(spec.IsPaginable)
+        if (spec.IsPaginable)
             query = query.Skip(spec.Skip).Take(spec.Take);
 
-        query = spec.Includes.Aggregate(query ,(current, include) => current.Include(include));
-        query = spec.IncludeStrings.Aggregate(query ,(current, include) => current.Include(include));
+        query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
+        query = spec.IncludeStrings.Aggregate(query, (current, include) => current.Include(include));
         return query;
     }
-    public static IQueryable<TResult> GetQuery<TSpec,TResult>(IQueryable<T> query, ISpecification<T,TResult> spec)
+    public static IQueryable<TResult> GetQuery<TSpec, TResult>(IQueryable<T> query, ISpecification<T, TResult> spec)
     {
         if (spec.Criteria != null)
         {
@@ -35,14 +35,14 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.OrderBy(spec.OrderBy);
         if (spec.OrderByDescending != null)
             query = query.OrderByDescending(spec.OrderByDescending);
-        
-        var selectQuery=query as IQueryable<TResult>;
-        if(spec.Select!=null)
-            selectQuery= query.Select(spec.Select);
-        if(spec.IsDistinctable)
-            selectQuery= selectQuery?.Distinct();
-        if(spec.IsPaginable)
-            selectQuery= selectQuery?.Skip(spec.Skip).Take(spec.Take);
+
+        var selectQuery = query as IQueryable<TResult>;
+        if (spec.Select != null)
+            selectQuery = query.Select(spec.Select);
+        if (spec.IsDistinctable)
+            selectQuery = selectQuery?.Distinct();
+        if (spec.IsPaginable)
+            selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take);
         return selectQuery ?? query.Cast<TResult>();
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs;
+using System.Security.Claims;
 
 namespace Skinet.API.Controllers;
 

@@ -1,9 +1,9 @@
 
-using System.Security.Authentication;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entites;
+using System.Security.Authentication;
+using System.Security.Claims;
 
 namespace Skinet.API.Extensions
 {
@@ -12,13 +12,13 @@ namespace Skinet.API.Extensions
         public static async Task<AppUser> GetUserByEmail(this UserManager<AppUser> userManager, ClaimsPrincipal userClaimes)
         {
             var user = await userManager.Users.FirstOrDefaultAsync(x =>
-             x.Email == userClaimes.GetEmail()) ?? throw new AuthenticationException("User not found");
+            x.Email == userClaimes.GetEmail()) ?? throw new AuthenticationException("User not found");
             return user;
         }
         public static async Task<AppUser> GetUserByEmailWithAddress(this UserManager<AppUser> userManager, ClaimsPrincipal userClaimes)
         {
-            var user = await userManager.Users.Include(u=>u.Address).FirstOrDefaultAsync(x =>
-             x.Email == userClaimes.GetEmail()) ?? throw new AuthenticationException("User not found");
+            var user = await userManager.Users.Include(u => u.Address).FirstOrDefaultAsync(x =>
+            x.Email == userClaimes.GetEmail()) ?? throw new AuthenticationException("User not found");
             return user;
         }
 

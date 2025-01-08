@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
@@ -58,7 +54,7 @@ namespace Skinet.Infrastructure.Services
             }
             await _cartService.SetCartAsync(cart);
             return cart;
-        } 
+        }
 
     }
 }

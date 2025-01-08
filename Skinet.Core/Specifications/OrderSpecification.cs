@@ -16,5 +16,11 @@ namespace Skinet.Core.Specifications
             AddInclude(x => x.DeliveryMethod);
             SetOrderByDescending(x => x.OrderDate);
         }
+        public OrderSpecification(string paymentIntentId, bool isPaymentIntent) : base(o => o.PaymentIntentId == paymentIntentId)
+        {
+            AddInclude(x => x.OrderItems);
+            AddInclude(x => x.DeliveryMethod);
+            SetOrderByDescending(x => x.OrderDate);
+        }
     }
 }

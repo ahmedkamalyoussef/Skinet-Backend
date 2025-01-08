@@ -9,7 +9,7 @@ namespace Skinet.API.Controllers
 {
     public class AccountController(SignInManager<AppUser> signInManager) : BaseApiController
     {
-        [HttpPost("register")]
+        [HttpPost("registr")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             System.Console.WriteLine($"Register endpoint hit with email: {registerDto.Email}");

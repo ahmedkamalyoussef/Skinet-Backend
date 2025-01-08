@@ -5,7 +5,7 @@ using Skinet.Infrastructure.Data;
 
 namespace Skinet.Infrastructure.Repositories;
 
-public class GenericRepository<T>(StoreContext _context):IGenericRepository<T> where T:BaseEntity
+public class GenericRepository<T>(StoreContext _context) : IGenericRepository<T> where T : BaseEntity
 {
     public async Task<T?> GetByIdAsync(int id)
     {
@@ -69,12 +69,12 @@ public class GenericRepository<T>(StoreContext _context):IGenericRepository<T> w
     #region private methods
     private IQueryable<T> ApplySpecification(ISpecification<T> spec)
     {
-        return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(),spec);
+        return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
     }
-    
-    private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T,TResult> spec)
+
+    private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> spec)
     {
-        return SpecificationEvaluator<T>.GetQuery<T,TResult>(_context.Set<T>().AsQueryable(),spec);
+        return SpecificationEvaluator<T>.GetQuery<T, TResult>(_context.Set<T>().AsQueryable(), spec);
     }
     #endregion
 }

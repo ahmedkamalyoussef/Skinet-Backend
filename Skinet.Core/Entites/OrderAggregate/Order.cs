@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Skinet.Core.Entites.OrderAggregate
 {
     public class Order : BaseEntity
@@ -14,7 +9,7 @@ namespace Skinet.Core.Entites.OrderAggregate
         public List<OrderItem> OrderItems { get; set; } = [];
         public DeliveryMethod DeliveryMethod { get; set; } = null!;
         public decimal SubTotal { get; set; }
-        public OrderStatus Status { get; set; }= OrderStatus.Pending;
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public required string PaymentIntentId { get; set; }
         public decimal GetTotal() => SubTotal + DeliveryMethod.Price;
     }
