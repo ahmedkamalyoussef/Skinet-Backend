@@ -64,8 +64,9 @@ namespace Skinet.API.Controllers
                 var spec = new OrderSpecification(intent.Id, true);
                 var order = await _unitOfWork.Repository<Order>().GetEntityWithSpecification(spec)
                     ?? throw new Exception("order not found");
+                var orderTotalInCents = (long)Math.Round(order.GetTotal() * 100,MidpointRounding.AwayFromZero);
 
-                if ((long)order.GetTotal() * 100 != intent.Amount)
+                if (orderTotalInCents != intent.Amount)
                     order.Status = OrderStatus.PaymentMismatch;
                 else
                     order.Status = OrderStatus.PaymentReceived;

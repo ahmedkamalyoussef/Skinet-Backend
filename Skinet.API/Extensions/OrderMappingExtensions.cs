@@ -18,6 +18,7 @@ namespace Skinet.API.Extensions
                 ShippingPrice = order.DeliveryMethod.Price,
                 OrderItems = order.OrderItems.Select(x => x.ToDto()).ToList(),
                 SubTotal = order.SubTotal,
+                Discount = order.Discount,
                 Status = order.Status.ToString(),
                 PaymentIntentId = order.PaymentIntentId,
                 Total = order.GetTotal()

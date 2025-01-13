@@ -15,6 +15,7 @@ namespace Skinet.Infrastructure.Configurations
                     o => (OrderStatus)Enum.Parse(typeof(OrderStatus), o)
             );
             builder.Property(o => o.SubTotal).HasColumnType("decimal(18,2)");
+            builder.Property(x => x.Discount).HasColumnType("decimal(18,2)");
             builder.HasMany(o => o.OrderItems).WithOne().OnDelete(DeleteBehavior.Cascade);
             builder.Property(o => o.OrderDate).HasConversion(
                 d => d.ToUniversalTime(),

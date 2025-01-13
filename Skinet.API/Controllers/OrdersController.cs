@@ -47,6 +47,7 @@ namespace Skinet.API.Controllers
                 DeliveryMethod = deliveryMethod,
                 ShippingAddress = orderDto.ShippingAddress,
                 SubTotal = subtotal,
+                Discount = orderDto.Discount,
                 PaymentSummary = orderDto.PaymentSummary,
                 PaymentIntentId = cart.PaymentIntentId,
                 BuyerEmail = email

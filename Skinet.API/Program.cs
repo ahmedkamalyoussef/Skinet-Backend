@@ -27,6 +27,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<ICartService, CartService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
+
 #endregion
 builder.Services.AddSignalR();
 #region Identity
@@ -64,7 +66,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGroup("account").MapIdentityApi<AppUser>();
 app.MapHub<NotificationHub>("/hub/notifications");
-app.MapFallbackToController("Index", "Fallback");
+// app.MapFallbackToController("Index", "Fallback");
 
 #region seeding data
 try

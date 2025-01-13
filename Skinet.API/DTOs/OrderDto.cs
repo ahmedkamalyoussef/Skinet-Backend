@@ -13,6 +13,7 @@ namespace Skinet.API.DTOs
         public required string DeliveryMethod { get; set; }
         public decimal ShippingPrice { get; set; }
         public decimal SubTotal { get; set; }
+        public decimal Discount { get; set; }
         public decimal Total { get; set; }
         public required string Status { get; set; }
         public required string PaymentIntentId { get; set; }

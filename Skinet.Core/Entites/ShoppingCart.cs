@@ -7,5 +7,6 @@ namespace Skinet.Core.Entites
         public string? PaymentIntentId { get; set; }
         public string? ClientSecret { get; set; }
         public int? DeliveryMethodId { get; set; }
+        public AppCoupon? Coupon { get; set; }
     }
 }
