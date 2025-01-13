@@ -52,17 +52,19 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.UseRouting();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200", "https://localhost:4200"));
 // Configure the HTTP request pipeline.
 
 // app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 app.MapGroup("account").MapIdentityApi<AppUser>();
 app.MapHub<NotificationHub>("/hub/notifications");
-
+app.MapFallbackToController("Index", "Fallback");
 
 #region seeding data
 try
