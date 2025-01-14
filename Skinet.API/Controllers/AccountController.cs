@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace Skinet.API.Controllers
                 return ValidationProblem();
             }
 
-            System.Console.WriteLine($"User created with FirstName: {user.FirstName}, LastName: {user.LastName}");
+            await signInManager.UserManager.AddToRoleAsync(user, "Customer");
 
             return Ok(new
             {
@@ -67,7 +68,8 @@ namespace Skinet.API.Controllers
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                Address = user.Address?.ToDto()
+                Address = user.Address?.ToDto(),
+                Roles =User.FindFirstValue(ClaimTypes.Role)
             });
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entites;
 using Skinet.Core.Entites.OrderAggregate;
@@ -20,5 +21,17 @@ public class StoreContext(DbContextOptions options) : IdentityDbContext<AppUser>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderConfiguration).Assembly);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrderItemConfiguration).Assembly);
+
+        SeedRoles(modelBuilder);
+    }
+
+    private static void SeedRoles(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<IdentityRole>().HasData
+            (
+            new IdentityRole() { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
+            new IdentityRole() { Id = "3", Name = "Customer", NormalizedName = "CUSTOMER" }
+            );
+
     }
 }

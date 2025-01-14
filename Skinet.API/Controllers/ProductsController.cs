@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Skinet.Core.Entites;
 using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
@@ -23,6 +24,7 @@ public class ProductsController(IUnitOfWork _unitOfWork) : BaseApiController
             return NotFound();
         return Ok(product);
     }
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> CreateProduct(Product product)
     {
@@ -30,7 +32,9 @@ public class ProductsController(IUnitOfWork _unitOfWork) : BaseApiController
         return await _unitOfWork.Complete() ?
             CreatedAtAction("GetProduct", new { id = product.Id }, product) : BadRequest("Product not created");
     }
+    
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateProduct(int id, Product product)
     {
@@ -39,7 +43,7 @@ public class ProductsController(IUnitOfWork _unitOfWork) : BaseApiController
         _unitOfWork.Repository<Product>().Update(product);
         return await _unitOfWork.Complete() ? Ok("successfully updated") : BadRequest("Product not updated");
     }
-
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {

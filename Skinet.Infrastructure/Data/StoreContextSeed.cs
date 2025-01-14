@@ -1,4 +1,6 @@
-﻿using Skinet.Core.Entites;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Skinet.Core.Entites;
 using System.Reflection;
 using System.Text.Json;
 
@@ -6,9 +8,26 @@ namespace Skinet.Infrastructure.Data;
 
 public class StoreContextSeed
 {
-    public static async Task SeedAsync(StoreContext context)
+    private static IConfiguration _config;
+    public StoreContextSeed(IConfiguration config)
     {
-        var path =Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        _config = config;
+    }
+    public static async Task SeedAsync(StoreContext context, UserManager<AppUser> userManager)
+    {
+
+        if (!userManager.Users.Any(u => u.Email == "admin@test.com"))
+        {
+            var user = new AppUser
+            {
+                Email = "admin@test.com",
+                UserName = "admin@test.com"
+            };
+            await userManager.CreateAsync(user, _config["AdminPassword"]);
+            await userManager.AddToRoleAsync(user, "Admin");
+        }
+
+        var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (!context.Products.Any())
         {
             var productsData = await File.ReadAllTextAsync(path + @"/Data/SeedData/products.json");

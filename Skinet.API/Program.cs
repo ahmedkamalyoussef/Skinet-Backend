@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Skinet.API.Middlewares;
@@ -33,7 +34,7 @@ builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddSignalR();
 #region Identity
 builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<StoreContext>();
+builder.Services.AddIdentityApiEndpoints<AppUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<StoreContext>();
 #endregion
 
 #region Cors
@@ -66,7 +67,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGroup("account").MapIdentityApi<AppUser>();
 app.MapHub<NotificationHub>("/hub/notifications");
-// app.MapFallbackToController("Index", "Fallback");
+app.MapFallbackToController("Index", "Fallback");
 
 #region seeding data
 try
@@ -74,8 +75,9 @@ try
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<StoreContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context);
+    await StoreContextSeed.SeedAsync(context, userManager);
 }
 catch (Exception e)
 {
