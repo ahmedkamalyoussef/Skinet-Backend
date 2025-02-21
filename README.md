@@ -4,6 +4,7 @@ A modern e-commerce platform built with ASP.NET Core and Redis, featuring a robu
 
 ## Features
 
+- Payment (using stripe)
 - Product catalog with filtering and pagination
 - Redis-powered shopping cart system
 - RESTful API architecture
