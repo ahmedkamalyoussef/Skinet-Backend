@@ -20,7 +20,7 @@ A modern e-commerce platform built with ASP.NET Core and Redis, featuring a robu
 
 ## Prerequisites
 
-- .NET 8.0 SDK
+- .NET 9.0 SDK
 - Docker Desktop
 - Visual Studio 2022 or VS Code
 
