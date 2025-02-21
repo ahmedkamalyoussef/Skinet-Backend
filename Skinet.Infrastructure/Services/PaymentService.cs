@@ -5,13 +5,21 @@ using Stripe;
 
 namespace Skinet.Infrastructure.Services
 {
-    public class PaymentService(IConfiguration _config, ICartService _cartService,
-    IUnitOfWork _unitOfWork) : IPaymentService
+    public class PaymentService : IPaymentService
     {
+        public ICartService _cartService;
+        public IUnitOfWork _unitOfWork;
 
+        public PaymentService(IConfiguration _config, ICartService cartService,
+                                IUnitOfWork unitOfWork)
+        {
+            _cartService = cartService;
+            _unitOfWork = unitOfWork;
+            StripeConfiguration.ApiKey = _config["Stripe:SecretKey"];
+
+        }
         public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
         {
-            StripeConfiguration.ApiKey = _config["Stripe:SecretKey"];
             var cart = await _cartService.GetCartAsync(cartId)
                 ?? throw new Exception("Cart unavailable");
             var shippingPrice = await GetShippingPriceAsync(cart) ?? 0;
@@ -25,6 +33,16 @@ namespace Skinet.Infrastructure.Services
             await CreateUpdatePaymentIntentAsync(cart, total);
             await _cartService.SetCartAsync(cart);
             return cart;
+        }
+        public async Task<string> RefundPayment(string paymentIntentId)
+        {
+            var refundoptions = new RefundCreateOptions
+            {
+                PaymentIntent = paymentIntentId
+            };
+            var refundService = new RefundService();
+            var result = await refundService.CreateAsync(refundoptions);
+            return result.Status;
         }
         private async Task CreateUpdatePaymentIntentAsync(ShoppingCart cart, long total)
         {
@@ -94,6 +112,7 @@ namespace Skinet.Infrastructure.Services
             }
             return null;
         }
+
 
     }
 }

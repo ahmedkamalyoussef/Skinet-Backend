@@ -1,10 +1,10 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs;
 using Skinet.API.Extensions;
 using Skinet.Core.Entites;
+using System.Security.Claims;
 
 namespace Skinet.API.Controllers
 {
@@ -69,7 +69,7 @@ namespace Skinet.API.Controllers
                 user.LastName,
                 user.Email,
                 Address = user.Address?.ToDto(),
-                Roles =User.FindFirstValue(ClaimTypes.Role)
+                Roles = User.FindFirstValue(ClaimTypes.Role)
             });
         }
 

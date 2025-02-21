@@ -5,6 +5,7 @@ namespace Skinet.Core.Entites.OrderAggregate
         Pending,
         PaymentReceived,
         PaymentFailed,
-        PaymentMismatch
+        PaymentMismatch,
+        Refunded
     }
 }

@@ -22,5 +22,19 @@ namespace Skinet.Core.Specifications
             AddInclude(x => x.DeliveryMethod);
             SetOrderByDescending(x => x.OrderDate);
         }
+        public OrderSpecification(OrderSpecParams specParams) : base(o =>
+            string.IsNullOrEmpty(specParams.Status) || specParams.Status == o.Status.ToString()
+        )
+        {
+            AddInclude(x => x.OrderItems);
+            AddInclude(x => x.DeliveryMethod);
+            ApplyPagination(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);
+            SetOrderByDescending(x => x.OrderDate);
+        }
+        public OrderSpecification(int id) : base(o => o.Id == id)
+        {
+            AddInclude(x => x.OrderItems);
+            AddInclude(x => x.DeliveryMethod);
+        }
     }
 }

@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Skinet.Infrastructure\Skinet.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

@@ -6,5 +6,6 @@ namespace Skinet.Core.Interfaces
     {
         IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
         Task<bool> Complete();
+        void Dispose();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Skinet.Core.Entites;
 using System.Reflection;
 using System.Text.Json;
@@ -8,10 +7,10 @@ namespace Skinet.Infrastructure.Data;
 
 public class StoreContextSeed
 {
-    private static IConfiguration _config;
-    public StoreContextSeed(IConfiguration config)
+    // private static IConfiguration _config;
+    public StoreContextSeed()
     {
-        _config = config;
+        // _config = config;
     }
     public static async Task SeedAsync(StoreContext context, UserManager<AppUser> userManager)
     {
@@ -23,7 +22,7 @@ public class StoreContextSeed
                 Email = "admin@test.com",
                 UserName = "admin@test.com"
             };
-            await userManager.CreateAsync(user, _config["AdminPassword"]);
+            await userManager.CreateAsync(user, "aA!123");
             await userManager.AddToRoleAsync(user, "Admin");
         }
 
